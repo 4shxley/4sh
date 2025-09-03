@@ -1,0 +1,228 @@
+<!DOCTYPE html><html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nanaa!!!</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Sans-Serif', cursive;
+      background: url('https://ik.imagekit.io/zqjumuz5g/Bocah.jpg') no-repeat center center fixed;
+      background-size: cover;
+      overflow: hidden;
+    }.popup, .page {
+  display: none;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  padding: 20px;
+  max-width: 300px;
+  margin: 80px auto;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+  animation: fadeIn 1s ease forwards;
+}
+
+.active { display: block; }
+
+.popup img {
+  width: 75px;
+  border-radius: 50%;
+  border: 3px solid white;
+  background: white;
+}
+
+.popup h2, .page h2 {
+  color: white;
+  margin: 15px 0 10px;
+  font-size: 22px;
+}
+
+.btn {
+  background-color: #d76d7f;
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.2);
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); opacity: 1; }
+  100% { transform: translateY(-100px); opacity: 0.3; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes shrinkOut {
+  to { transform: scale(0); opacity: 0; }
+}
+
+@keyframes growIn {
+  from { transform: scale(0); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.typing::after {
+  content: '|';
+  animation: blink 1s infinite;
+}
+
+.memory-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  justify-content: center;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.card {
+  font-size: 24px;
+  padding: 15px;
+  background: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+  </style>
+</head>
+<body>
+  <audio id='sempurna.mp3'autoplay="loop">
+    <source src="sempurna.mp3" type='audio/mpeg'>
+  </audio>
+  <div class="circle" style="width: 80px; height: 80px; top: 70%; left: 20%; animation-delay: 0s;"></div>
+  <div class="circle" style="width: 50px; height: 50px; top: 60%; left: 60%; animation-delay: 2s;"></div>
+  <div class="circle" style="width: 60px; height: 60px; top: 50%; left: 30%; animation-delay: 1s;"></div>  <div class="popup active" id="page1">
+    <img src="https://ik.imagekit.io/zqjumuz5g/guwe.jpg" alt="Panda Lucu">
+    <h2>Haloo nyeettt</h2>
+    <button class="btn" onclick="nextPage('page1','page2')">Mulai</button>
+  </div>  <div class="page" id="page2">
+    <img id="amplop" src="https://ik.imagekit.io/zqjumuz5g/cc2993d12dfee100808bd9d088c26cee.jpg?updatedAt=1754483601275" width="120" onclick="openEnvelope()" style="cursor:pointer; transition:transform 0.6s ease;">
+    <h2>Surat buat eluu</h2>
+    <div id="isiSurat" style="display:none; margin-top:15px;">
+      <h3 style="color:grey"><dt>Haloo bocill!! </dt> Hari ini hari apa yaa🤔⁉️ Aku cuman mau bilang makasiii dan maaf buat segalanyaaa. Kamu semangat terus yaa, jangan lupa senyummm😁. Tombol di bawah jangan lupa di klik yaaa ^_^</h3>
+      <button class="btn" onclick="nextPage('page2','page3')">Lanjut</button>
+    </div>
+  </div>  <div class="page" id="page3">
+   <img id="amplop" src="https://ik.imagekit.io/zqjumuz5g/cc2993d12dfee100808bd9d088c26cee.jpg?updatedAt=1754483601275" width="120" onclick="openEnvelope()" style="cursor:pointer; transition:transform 0.6s ease;">
+    <h2 style="color:white">Geser Tahun Lahir Kamu</h2>
+    <input type="range" id="tahun" min="2000" max="2025" value="2009" oninput="updateTahun(this.value)">
+    <p id="outputTahun" style="color:gray">2025</p>
+    <button class="btn" onclick="cekTahun()">Lanjutkan</button>
+  </div>  <div class="page" id="page4">
+    <h2 style="color:white">Memory game😼🧠</h2> <p style="color:white">emotnya di cocokin yaa!</p>
+    <div class="memory-grid" id="grid"></div>
+  </div>  <div class="popup" id="page5" style="display:none;">
+    <img src="https://ik.imagekit.io/zqjumuz5g/guwe.jpg" alt="Panda Lucu">
+    <h3 class="typing" id="typedText" style="color:black"></h3>
+  </div>  <script>
+    function nextPage(current, next) {
+      document.getElementById(current).classList.remove('active');
+      document.getElementById(next).classList.add('active');
+    }
+
+    function openEnvelope() {
+      const amplop = document.getElementById('amplop');
+      amplop.style.transform = 'rotateX(90deg)';
+      setTimeout(() => {
+        amplop.style.display = 'none';
+        document.getElementById('isiSurat').style.display = 'block';
+      }, 600);
+    }
+
+    function updateTahun(val) {
+      document.getElementById('outputTahun').innerText = val;
+    }
+
+    function cekTahun() {
+      const tahun = document.getElementById('tahun').value;
+      if (tahun == '2009') {
+        nextPage('page3', 'page4');
+        startGame();
+      } else {
+        alert('Yakin bukan 2009? 😅');
+      }
+    }
+
+    const emojis = ['💗','🚀','🗿','😋','😼','🐣'];
+    let first = null, second = null, matched = 0;
+
+    function startGame() {
+      const grid = document.getElementById('grid');
+      let cards = [...emojis, ...emojis].sort(() => 0.5 - Math.random());
+      grid.innerHTML = '';
+      cards.forEach((emoji, i) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerText = '❓';
+        card.onclick = () => flip(card, emoji);
+        grid.appendChild(card);
+      });
+    }
+
+    function flip(card, emoji) {
+      if (card.innerText !== '❓' || second) return;
+      card.innerText = emoji;
+      if (!first) {
+        first = { card, emoji };
+      } else {
+        second = { card, emoji };
+        if (first.emoji === second.emoji) {
+          matched++;
+          first = second = null;
+          if (matched === emojis.length) {
+            setTimeout(showFinal, 1000);
+          }
+        } else {
+          setTimeout(() => {
+            first.card.innerText = second.card.innerText = '❓';
+            first = second = null;
+          }, 700);
+        }
+      }
+    }
+
+    function showFinal() {
+      document.getElementById('page4').style.animation = 'shrinkOut 0.10s forwards';
+      setTimeout(() => {
+        document.getElementById('page4').style.display = 'none';
+        const final = document.getElementById('page5');
+        final.style.display = 'block';
+        final.style.animation = 'growIn 0.20s forwards';
+        typeText("Selamaat ulang tahunnn yang ke-16‼️🥳 Semoga sehat selalu, jadi anak yang sholeh, semoga jadi orang sukses (klo dah sukses jgn lupain guwe, traktir). Ntar kalo kmu udah nemu Someone who can make you happy, jangan lupain aku ya? Boleh? Meskipun pas kamu sama aku bahagia nya cuman sikiittt bangettt🤏🏾🤏🏾, apalagij yaaa kira-kiraa🤔. Oiyaa, maaf cuman ngirim yang kaya gini doang, ga effort beliin barang apapun buat elu. Ah udah lahh intinya Wish you all the best!!");
+      }, 800);
+    }
+
+    function typeText(text) {
+      let i = 0;
+      const target = document.getElementById("typedText");
+      target.innerText = '';
+      function typing() {
+        if (i < text.length) {
+          target.innerText += text.charAt(i);
+          i++;
+          setTimeout(typing, 50);
+        }
+      }
+      typing();
+    }
+  </script></body>
+</html>
